@@ -57,7 +57,7 @@ for si = 1:length(subNames)
         videoHeatMap = cell(1, length(jpgFiles));
         videoPrediction = cell(1, length(jpgFiles));
         for i = 1:length(jpgFiles)
-            imName = fullfile(dataPath, jpgFiles(i).name);
+            imName = fullfile(dataSubSubPath, jpgFiles(i).name);
             oriImg = imread(imName);
             center = [(1 + size(oriImg, 2))/2, (1 + size(oriImg, 1))/2];
             
