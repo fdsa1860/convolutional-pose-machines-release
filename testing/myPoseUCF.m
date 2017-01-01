@@ -2,7 +2,7 @@
 function [heatMaps, prediction] = myPoseUCF
 
 close all;
-addpath('src'); 
+addpath('src');
 addpath('util');
 addpath('util/ojwoodford-export_fig-5735e6d/');
 param = config();
@@ -26,11 +26,14 @@ middle_range = 1.2;
 starting_range = middle_range * 0.8;
 ending_range = middle_range * 3.0;
 
-dataPath = '/home/xikang/research/data/ucf_sports_actions';
+dataPath = '~/research/data/ucf_sports_actions';
 outputPath = './ucf_pose';
 subList = dir(dataPath);
-isDir = subList(:).isdir;
-subNames = {subList(isDir).name};
+isDir = [subList(:).isdir];
+subList = subList(isDir);
+subList(strncmp({subList.name}, '.', 1)) = [];
+subList(strncmp({subList.name}, '..', 1)) = [];
+subNames = {subList.name};
 for si = 1:length(subNames)
     outputSubPath = fullfile(outputPath, subNames{si});
     if ~exist(outputSubPath, 'dir')
@@ -38,8 +41,11 @@ for si = 1:length(subNames)
     end
     dataSubPath = fullfile(dataPath, subNames{si});
     subsubList = dir(dataSubPath);
-    isSubDir = subsubList(:).isdir;
-    subsubNames = {subsubList(isSubDir).name};
+    isSubDir = [subsubList(:).isdir];
+    subsubList = subsubList(isSubDir);
+    subsubList(strncmp({subsubList.name}, '.', 1)) = [];
+    subsubList(strncmp({subsubList.name}, '..', 1)) = [];
+    subsubNames = {subsubList.name};
     for ssi = 1:length(subsubNames)
         outputSubSubPath = fullfile(outputSubPath, subsubNames{ssi});
         if ~exist(outputSubSubPath, 'dir')
