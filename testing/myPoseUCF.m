@@ -1,7 +1,13 @@
 %function [heatMaps, prediction] = applyModel(test_image, param, rectangle)
 function [heatMaps, prediction] = myPoseUCF
 
-config;
+close all;
+addpath('src'); 
+addpath('util');
+addpath('util/ojwoodford-export_fig-5735e6d/');
+param = config();
+
+fprintf('Description of selected model: %s \n', param.model(param.modelID).description);
 %% Select model and other parameters from param
 model = param.model(param.modelID);
 boxsize = model.boxsize;
@@ -26,11 +32,11 @@ subList = dir(dataPath);
 isDir = subList(:).isdir;
 subNames = {subList(isDir).name};
 for si = 1:length(subNames)
-    outputSubPath = fullfile(outputPath, subNames{i});
+    outputSubPath = fullfile(outputPath, subNames{si});
     if ~exist(outputSubPath, 'dir')
         mkdir(outputSubPath);
     end
-    dataSubPath = fullfile(dataPath, subNames{i});
+    dataSubPath = fullfile(dataPath, subNames{si});
     subsubList = dir(dataSubPath);
     isSubDir = subsubList(:).isdir;
     subsubNames = {subsubList(isSubDir).name};
@@ -39,7 +45,7 @@ for si = 1:length(subNames)
         if ~exist(outputSubSubPath, 'dir')
             mkdir(outputSubSubPath)
         end
-        dataSubSubPath = fullfile(dataSubPath, subsubNames{i});
+        dataSubSubPath = fullfile(dataSubPath, subsubNames{ssi});
         
         jpgFiles = dir(fullfile(dataSubSubPath, '*.jpg'));
         videoHeatMap = cell(1, length(jpgFiles));
