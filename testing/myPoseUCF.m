@@ -52,11 +52,12 @@ for si = 1:length(subNames)
             mkdir(outputSubSubPath)
         end
         dataSubSubPath = fullfile(dataSubPath, subsubNames{ssi});
-        
+	fprintf('Running %s,%s\n',subNames{si},subsubNames{ssi});        
         jpgFiles = dir(fullfile(dataSubSubPath, '*.jpg'));
         videoHeatMap = cell(1, length(jpgFiles));
         videoPrediction = cell(1, length(jpgFiles));
         for i = 1:length(jpgFiles)
+	    fprintf('\tProcessing Frame %d/%d\n', i, length(jpgFiles));
             imName = fullfile(dataSubSubPath, jpgFiles(i).name);
             oriImg = imread(imName);
             center = [(1 + size(oriImg, 2))/2, (1 + size(oriImg, 1))/2];
@@ -125,7 +126,7 @@ for si = 1:length(subNames)
                 [prediction(j,1), prediction(j,2)] = findMaximum(final_score{end}(:,:,j));
             end
             
-            videoHeatMap{i} = heatMaps;
+            videoHeatMa(i) = heatMaps(end);
             videoPrediction{i} = prediction;
             save(fullfile(outputSubSubPath, 'poseCPM.mat'),'videoHeatMap', 'videoPrediction');
         end
