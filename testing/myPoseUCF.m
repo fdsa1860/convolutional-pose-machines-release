@@ -115,7 +115,7 @@ for si = 1:length(subNames)
                 final_score{s} = zeros(size(score{1,1}));
                 for m = 1:size(score,2)
                     final_score{s} = final_score{s} + score{s,m};
-if s==2, keyboard;end
+%if s==2, keyboard;end
                 end
                 heatMaps{s} = permute(final_score{s}, [2 1 3]);
                 heatMaps{s} = heatMaps{s} / size(score,2);

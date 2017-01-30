@@ -14,7 +14,7 @@ GPUdeviceNumber = 0;
 % 3: LSP(PC) 6-stage CPM
 % 4: FLIC 4-stage CPM (upper body only)
 % 5: MPII 6-stage CPM VGG-pretrained
-param.modelID = 5;
+param.modelID = 1;
 
 % Scaling paramter: starting and ending ratio of person height to image
 % height, and number of scales per octave
